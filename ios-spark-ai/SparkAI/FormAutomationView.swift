@@ -36,6 +36,7 @@ struct FormAutomationView: View {
     @State private var liveSteps: [LiveRunStep] = []
     @State private var liveCredential: GeneratedCredential?
     @State private var showCredentials = false
+    @State private var showSSHPassword = false
 
     var body: some View {
         VStack(spacing: 0) {
@@ -97,6 +98,9 @@ struct FormAutomationView: View {
         }
         .sheet(isPresented: $showCredentials) {
             CredentialsView()
+        }
+        .sheet(isPresented: $showSSHPassword) {
+            SSHPasswordSettingsView()
         }
     }
 
@@ -669,6 +673,42 @@ struct FormAutomationView: View {
                 Button {
                     Haptics.light()
                     showEmailAlias = true
+                } label: {
+                    Image(systemName: "gearshape")
+                        .font(.system(size: 12, weight: .semibold))
+                        .foregroundStyle(Theme.textSecondary)
+                }
+            }
+
+            HStack(spacing: 8) {
+                Image(systemName: "lock.shield")
+                    .font(.system(size: 12, weight: .semibold))
+                    .foregroundStyle(SSHPasswordService.shared.isConfigured ? Theme.amber : Theme.textTertiary)
+                VStack(alignment: .leading, spacing: 1) {
+                    Text("SSH PASSWORD")
+                        .font(Theme.mono(10.5, .heavy))
+                        .tracking(0.8)
+                        .foregroundStyle(Theme.textSecondary)
+                    Text(SSHPasswordService.shared.isConfigured ? "\(SSHPasswordService.shared.settings.username)@\(SSHPasswordService.shared.settings.host)" : "Not configured")
+                        .font(Theme.mono(9))
+                        .foregroundStyle(Theme.textTertiary)
+                        .lineLimit(1)
+                        .truncationMode(.middle)
+                }
+                Spacer()
+                Toggle("", isOn: Binding(
+                    get: { SSHPasswordService.shared.settings.isEnabled },
+                    set: { newValue in
+                        var settings = SSHPasswordService.shared.settings
+                        settings.isEnabled = newValue
+                        SSHPasswordService.shared.update(settings)
+                    }
+                ))
+                .labelsHidden()
+                .disabled(!SSHPasswordService.shared.isConfigured)
+                Button {
+                    Haptics.light()
+                    showSSHPassword = true
                 } label: {
                     Image(systemName: "gearshape")
                         .font(.system(size: 12, weight: .semibold))
