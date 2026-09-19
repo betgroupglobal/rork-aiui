@@ -1,0 +1,10 @@
+{
+  "apps": [
+    {
+      "name": "Spark AI",
+      "path": "ios-spark-ai",
+      "framework": "swift"
+    }
+  ],
+  "$schema": "https://rork.com/schema/rork.json"
+}

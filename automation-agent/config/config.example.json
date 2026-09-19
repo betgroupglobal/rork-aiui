@@ -1,0 +1,36 @@
+{
+  "emailalias": {
+    "api_key": "your_emailalias_api_key_here",
+    "api_url": "https://emailalias.io/api",
+    "domain": "optional_custom_domain.com"
+  },
+  "passwords": {
+    "selection_strategy": "random",
+    "min_length": 12,
+    "include_numbers": true,
+    "include_symbols": true
+  },
+  "receiving_email": {
+    "email_address": "your_email@example.com",
+    "access_method": "imap",
+    "imap_server": "imap.example.com",
+    "imap_port": 993,
+    "email_password": "your_email_password"
+  },
+  "sms_provider": {
+    "enabled": false,
+    "provider": "crazytel",
+    "api_key": "your_crazytel_api_key",
+    "api_url": "https://api.crazytel.com",
+    "phone_number": "+1234567890"
+  },
+  "automation": {
+    "timeout": 30,
+    "headless": true,
+    "screenshot_on_error": true,
+    "log_level": "info"
+  },
+  "ui": {
+    "token": ""
+  }
+}

@@ -1,0 +1,162 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Automation Agent Configuration",
+  "type": "object",
+  "required": ["emailalias", "passwords", "receiving_email"],
+  "properties": {
+    "emailalias": {
+      "type": "object",
+      "description": "emailalias.io credentials for email creation",
+      "required": ["api_key", "api_url"],
+      "properties": {
+        "api_key": {
+          "type": "string",
+          "description": "API key for emailalias.io"
+        },
+        "api_url": {
+          "type": "string",
+          "description": "API endpoint URL for emailalias.io",
+          "default": "https://emailalias.io/api"
+        },
+        "domain": {
+          "type": "string",
+          "description": "Custom domain for email aliases (optional)"
+        }
+      }
+    },
+    "passwords": {
+      "type": "object",
+      "description": "Password configuration for agent account creation",
+      "required": ["selection_strategy"],
+      "properties": {
+        "selection_strategy": {
+          "type": "string",
+          "enum": ["random", "fixed", "pattern"],
+          "description": "How passwords are selected"
+        },
+        "fixed_password": {
+          "type": "string",
+          "description": "Fixed password to use (if strategy is 'fixed')"
+        },
+        "password_pattern": {
+          "type": "string",
+          "description": "Password pattern for generation (if strategy is 'pattern')"
+        },
+        "min_length": {
+          "type": "integer",
+          "description": "Minimum password length",
+          "default": 12
+        },
+        "include_numbers": {
+          "type": "boolean",
+          "default": true
+        },
+        "include_symbols": {
+          "type": "boolean",
+          "default": true
+        }
+      }
+    },
+    "receiving_email": {
+      "type": "object",
+      "description": "Email configuration for receiving 2FA codes",
+      "required": ["email_address", "access_method"],
+      "properties": {
+        "email_address": {
+          "type": "string",
+          "description": "Email address to receive 2FA codes"
+        },
+        "access_method": {
+          "type": "string",
+          "enum": ["imap", "api", "pop3"],
+          "description": "How to access the receiving email"
+        },
+        "imap_server": {
+          "type": "string",
+          "description": "IMAP server address (if using IMAP)"
+        },
+        "imap_port": {
+          "type": "integer",
+          "description": "IMAP port (default: 993)",
+          "default": 993
+        },
+        "email_password": {
+          "type": "string",
+          "description": "Password for email access"
+        },
+        "api_endpoint": {
+          "type": "string",
+          "description": "API endpoint for email access (if using API)"
+        },
+        "api_key": {
+          "type": "string",
+          "description": "API key for email access (if using API)"
+        }
+      }
+    },
+    "sms_provider": {
+      "type": "object",
+      "description": "SMS provider configuration (crazytel)",
+      "required": ["enabled"],
+      "properties": {
+        "enabled": {
+          "type": "boolean",
+          "default": false
+        },
+        "provider": {
+          "type": "string",
+          "enum": ["crazytel"],
+          "default": "crazytel"
+        },
+        "api_key": {
+          "type": "string",
+          "description": "API key for crazytel"
+        },
+        "api_url": {
+          "type": "string",
+          "description": "API endpoint for crazytel"
+        },
+        "phone_number": {
+          "type": "string",
+          "description": "Phone number to use for SMS verification"
+        }
+      }
+    },
+    "automation": {
+      "type": "object",
+      "description": "General automation settings",
+      "properties": {
+        "timeout": {
+          "type": "integer",
+          "description": "Timeout for automation steps in seconds",
+          "default": 30
+        },
+        "headless": {
+          "type": "boolean",
+          "description": "Run browser in headless mode",
+          "default": true
+        },
+        "screenshot_on_error": {
+          "type": "boolean",
+          "description": "Take screenshot on automation errors",
+          "default": true
+        },
+        "log_level": {
+          "type": "string",
+          "enum": ["debug", "info", "warn", "error"],
+          "default": "info"
+        }
+      }
+    },
+    "ui": {
+      "type": "object",
+      "description": "Web UI settings",
+      "properties": {
+        "token": {
+          "type": "string",
+          "description": "Access token required by the API. Empty or absent = localhost-only access. Also settable via AUTOMATION_UI_TOKEN env var."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Featherless AI Self-Healing Launcher
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export FEATHERLESS_API_KEY="${FEATHERLESS_API_KEY:-rc_a939625b5ebea3e527e07ee81d1d3ac10a77be72203eed6e53c3a81f4174a86a}"
+
+exec python3 "$SCRIPT_DIR/error_fixer.py" "$@"

@@ -1,0 +1,4 @@
+[submodule "abliterated_ui"]
+	path = abliterated_ui
+	url = https://github.com/flak3dd/abliterated_ui.git
+	branch = main

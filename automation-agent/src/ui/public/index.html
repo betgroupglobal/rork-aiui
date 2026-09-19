@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Automation Agent</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>🤖 Automation Agent</h1>
+            <p>Browser automation for account creation with email/SMS verification</p>
+        </header>
+
+        <main>
+            <div class="config-section">
+                <h2>Configuration Status</h2>
+                <div id="configStatus" class="status-checking">
+                    <span class="status-icon">⏳</span>
+                    <span>Checking configuration...</span>
+                </div>
+            </div>
+
+            <div class="automation-section">
+                <h2>Run Automation</h2>
+                <form id="automationForm">
+                    <div class="form-group token-group">
+                        <label for="authToken">Access Token <small>(optional for localhost)</small></label>
+                        <input
+                            type="password"
+                            id="authToken"
+                            name="authToken"
+                            placeholder="AUTOMATION_UI_TOKEN / config ui.token"
+                            autocomplete="off"
+                        >
+                        <small>Required when the server has a token configured. Saved locally in your browser.</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="targetUrl">Target URL</label>
+                        <input
+                            type="url"
+                            id="targetUrl"
+                            name="targetUrl"
+                            placeholder="https://example.com/register"
+                            required
+                        >
+                        <small>Enter the registration URL of the target website</small>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="credentialName">Credential Name</label>
+                        <input
+                            type="text"
+                            id="credentialName"
+                            name="credentialName"
+                            placeholder="my-account-001"
+                            required
+                        >
+                        <small>Name for the credential (used for email generation)</small>
+                    </div>
+
+                    <div class="button-row">
+                        <button type="submit" id="goButton" class="btn-primary">
+                            <span class="btn-text">Go</span>
+                            <span class="btn-loading hidden">Running...</span>
+                        </button>
+                        <button type="button" id="cancelButton" class="btn-secondary hidden">Cancel</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="progress-section hidden" id="progressSection">
+                <h2>Live Progress</h2>
+                <div id="progressContent" class="progress"></div>
+            </div>
+
+            <div class="results-section hidden" id="resultsSection">
+                <h2>Automation Results</h2>
+                <div id="resultsContent"></div>
+            </div>
+
+            <div class="logs-section hidden" id="logsSection">
+                <h2>Execution Logs</h2>
+                <div id="logsContent" class="logs"></div>
+            </div>
+        </main>
+
+        <footer>
+            <p>Powered by agent-browser • Uses emailalias.io for email verification</p>
+        </footer>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>

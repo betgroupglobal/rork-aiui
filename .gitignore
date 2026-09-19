@@ -1,0 +1,7 @@
+node_modules
+.env
+.expo
+.rork
+__pycache__/
+*.pyc
+*.bak
